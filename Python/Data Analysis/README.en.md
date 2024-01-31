@@ -2,7 +2,7 @@
 
 # Stackoverflow Developer Survey Analysis
 
-In this project, based on the 2022 Stackoverflow Developer Survey, I analyzed the results using the Pandas library.
+In this project, based on the 2022 Stackoverflow Developer Survey, I analyzed the results using the **Pandas** library.
 
 ## Task Overview
 
@@ -25,8 +25,8 @@ In this project, based on the 2022 Stackoverflow Developer Survey, I analyzed th
 
 ## Project Structure
 
+- [Stackoverflow Developer Survey](https://insights.stackoverflow.com/survey) - site with Stack Overflow poll results.
 - **Python-Data Analysis.ipynb:** Jupyter Notebook containing the analysis code and answers to the questions.
-- [Stackoverflow Developer Survey](https://insights.stackoverflow.com/survey)
 
 
 Feel free to explore the notebook for detailed analysis and insights into the Stackoverflow Developer Survey data!
