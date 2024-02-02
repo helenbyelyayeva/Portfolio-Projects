@@ -52,6 +52,7 @@ This SQL file contains queries to create views for analyzing revenue metrics for
 ---
 ### Dashboard Integration:
 After creating the views,I integrated them into  dashboarding tool to visualize and analyze revenue metrics effectively. The dashboard will enable product managers to track changes in revenue dynamics and conduct high-level analysis of the factors driving these changes.
+- [dasboard in tableau](https://public.tableau.com/views/Book1-Revenue2/Dashboard2?:language=en-US&:display_count=n&:origin=viz_share_link) - Interactive Dashboard with Additional Filters and Parameters;
 
 
 
