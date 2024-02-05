@@ -1,11 +1,9 @@
 /*
    This query calculates various metrics for Facebook ads on a daily basis.
-   Metrics include total spend, clicks, impressions, value, CPC (Cost Per Click),
-   CPM (Cost Per Thousand Impressions), CTR (Click Through Rate), and ROMI
+   Metrics include total spend, clicks, impressions, value, CPC (Cost Per Click), CPM (Cost Per Thousand Impressions), CTR (Click Through Rate), and ROMI
    (Return on Marketing Investment).
    
-   The query filters out records where impressions, clicks, and spend are greater
-   than zero, and groups the results by ad_date and campaign_id.
+   The query filters out records where impressions, clicks, and spend are greater than zero, and groups the results by ad_date and campaign_id.
 */
 
 SELECT
@@ -52,22 +50,12 @@ ORDER BY max_romi DESC
 LIMIT 1;
 
 /*
-   This query combines data from Facebook and Google ad campaigns to calculate
-   aggregated metrics such as total spend, impressions, clicks, and value for each
-   campaign on a daily basis.
-
-   The WITH clause creates a common table expression (CTE) called combined_data by
-   joining data from the tables public.facebook_ads_basic_daily, public.facebook_campaign,
-   and public.facebook_adset for Facebook ads, and public.google_ads_basic_daily for
-   Google ads. It uses the UNION operator to merge the data from both sources.
-
-   The SELECT statement then calculates the aggregated metrics by summing up spend,
-   impressions, clicks, and value for each campaign_name and ad_date from the combined_data
-   CTE. The results are grouped by ad_date and campaign_name.
-
-   Overall, this query provides a consolidated view of ad campaign performance across
-   different platforms on a daily basis.
+   This query combines Facebook and Google ad campaign data to calculate total spend, impressions, clicks, and value per campaign daily.
+   It uses a common table expression (CTE) called combined_data to merge data from both platforms using the UNION operator.
+   Metrics are then aggregated by campaign_name and ad_date from the combined_data CTE.
+   The result offers a concise overview of daily ad campaign performance across platforms.
 */
+
 
 WITH combined_data AS (
   SELECT ad_date, public.facebook_ads_basic_daily.campaign_id, public.facebook_ads_basic_daily.adset_id, spend, impressions, reach, clicks, leads, value, url_parameters, total, CAST(campaign_name AS text) AS campaign_name, adset_name
@@ -88,10 +76,8 @@ FROM combined_data
 GROUP BY ad_date, campaign_name;
 
 /*
-   This query finds the adset with the highest ROMI 
-   among those with a total spend greater than $500,000. 
-   It combines data from Facebook and Google ad campaigns 
-   and calculates ROMI as the ratio of total value to total spend.
+   This query finds the adset with the highest ROMI among those with a total spend greater than $500,000. 
+   It combines data from Facebook and Google ad campaigns  and calculates ROMI as the ratio of total value to total spend.
 */
 
 WITH combined_data AS (
@@ -121,3 +107,193 @@ FROM (
 GROUP BY campaign_name, adset_name
 ORDER BY max_romi DESC
 LIMIT 1;
+
+/*
+   This query combines data from Facebook and Google ad campaigns to calculate aggregated metrics for each ad campaign. 
+   It uses a common table expression (CTE) called COMBINED_DATA to merge data from both sources and handle null values. 
+   The SELECT statement then calculates metrics such as total spend, impressions, clicks, and value, 
+   and also decodes the UTM_CAMPAIGN value extracted from URL_PARAMETERS. 
+*/
+
+
+WITH COMBINED_DATA AS (
+SELECT
+	AD_DATE,
+	PUBLIC.FACEBOOK_ADS_BASIC_DAILY.CAMPAIGN_ID,
+	PUBLIC.FACEBOOK_ADS_BASIC_DAILY.ADSET_ID,
+	COALESCE(SPEND,0) AS SPEND,
+	COALESCE(IMPRESSIONS,0) AS IMPRESSIONS,
+	COALESCE(REACH,0) AS REACH,
+	COALESCE(CLICKS,0) AS CLICKS,
+	COALESCE(LEADS,0) AS LEADS,
+	COALESCE(VALUE,0) AS VALUE,
+	URL_PARAMETERS,
+	TOTAL,
+	CAST(CAMPAIGN_NAME AS TEXT) AS CAMPAIGN_NAME,
+	ADSET_NAME
+FROM
+	PUBLIC.FACEBOOK_ADS_BASIC_DAILY
+JOIN PUBLIC.FACEBOOK_CAMPAIGN ON
+	PUBLIC.FACEBOOK_ADS_BASIC_DAILY.CAMPAIGN_ID = PUBLIC.FACEBOOK_CAMPAIGN.CAMPAIGN_ID
+JOIN PUBLIC.FACEBOOK_ADSET ON
+	PUBLIC.FACEBOOK_ADS_BASIC_DAILY.ADSET_ID = PUBLIC.FACEBOOK_ADSET.ADSET_ID
+UNION
+SELECT
+	AD_DATE,
+	NULL AS CAMPAIGN_ID,
+	NULL AS ADSET_ID,
+	COALESCE(SPEND,0) AS SPEND,
+	COALESCE(IMPRESSIONS,0) AS IMPRESSIONS,
+	COALESCE(REACH,0) AS REACH,
+	COALESCE(CLICKS,0) AS CLICKS,
+	COALESCE(LEADS,0) AS LEADS,
+	COALESCE(VALUE,0) AS VALUE,
+	URL_PARAMETERS,
+	NULL AS TOTAL,
+	CAST(CAMPAIGN_NAME AS TEXT) AS CAMPAIGN_NAME,
+	ADSET_NAME
+FROM
+	PUBLIC.GOOGLE_ADS_BASIC_DAILY
+)
+SELECT
+	AD_DATE,
+ CASE
+        WHEN LOWER(SUBSTRING(URL_PARAMETERS, 'utm_campaign=([^&#$]+)')) = 'nan' THEN NULL
+        WHEN LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)')) LIKE '%d1%82%d1%80%d0%b5%d0%bd%d0%b4%' THEN REPLACE(LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)')), '%d1%82%d1%80%d0%b5%d0%bd%d0%b4', 'trend')
+        WHEN LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)')) LIKE '%d0%b1%d1%80%d0%b5%d0%bd%d0%b4%' THEN REPLACE(LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)')), '%d0%b1%d1%80%d0%b5%d0%bd%d0%b4', 'brand')
+        ELSE LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)'))
+    END AS UTM_CAMPAIGN,
+	SUM(SPEND) AS TOTAL_SPEND,
+	SUM(IMPRESSIONS) AS TOTAL_IMPRESSIONS,
+	SUM(CLICKS) AS TOTAL_CLICKS,
+	SUM(VALUE) AS TOTAL_VALUE,
+	CASE
+		WHEN SUM(CLICKS) > 0 THEN ROUND(CAST(SUM(SPEND) AS NUMERIC) / SUM(CLICKS),
+		3)
+	END AS CPC,
+	CASE
+		WHEN SUM(IMPRESSIONS) > 0 THEN ROUND((CAST(SUM(SPEND) AS NUMERIC) / SUM(IMPRESSIONS)) * 1000,
+		3)
+	END AS CPM,
+	CASE
+		WHEN SUM(IMPRESSIONS) > 0 THEN ROUND((CAST(SUM(CLICKS) AS NUMERIC) / SUM(IMPRESSIONS)) * 100,
+		3)
+	END AS CTR,
+	CASE
+		WHEN SUM(SPEND) > 0 THEN ROUND(((CAST(SUM(VALUE) AS NUMERIC) - SUM(SPEND)) / SUM(SPEND)) * 100,
+		3)
+	END AS ROMI
+FROM
+	COMBINED_DATA
+GROUP BY
+	AD_DATE,
+	UTM_CAMPAIGN;
+
+/*
+   This query calculates aggregated metrics for Facebook and Google ad campaigns on a monthly basis.
+   It first creates a common table expression (CTE) named combined_data by merging data from both platforms.
+   Then, another CTE named monthly_data aggregates the data by month and decodes the UTM_CAMPAIGN parameter.
+   The final CTE, monthly_data_with_diff, calculates differences in CPM, CTR, and ROMI compared to the previous month.
+   The main query selects the aggregated metrics along with the calculated differences.
+*/
+
+
+
+
+
+WITH combined_data AS (
+    SELECT
+        TO_CHAR(DATE_TRUNC('month', ad_date::DATE), 'YYYY-MM-DD') AS ad_date,
+        PUBLIC.FACEBOOK_ADS_BASIC_DAILY.CAMPAIGN_ID,
+        PUBLIC.FACEBOOK_ADS_BASIC_DAILY.ADSET_ID,
+        COALESCE(SPEND,0) AS SPEND,
+        COALESCE(IMPRESSIONS,0) AS IMPRESSIONS,
+        COALESCE(REACH,0) AS REACH,
+        COALESCE(CLICKS,0) AS CLICKS,
+        COALESCE(LEADS,0) AS LEADS,
+        COALESCE(VALUE,0) AS VALUE,
+        URL_PARAMETERS,
+        TOTAL,
+        CAST(CAMPAIGN_NAME AS TEXT) AS CAMPAIGN_NAME,
+        ADSET_NAME
+    FROM PUBLIC.FACEBOOK_ADS_BASIC_DAILY
+    JOIN PUBLIC.FACEBOOK_CAMPAIGN ON PUBLIC.FACEBOOK_ADS_BASIC_DAILY.CAMPAIGN_ID = PUBLIC.FACEBOOK_CAMPAIGN.CAMPAIGN_ID
+    JOIN PUBLIC.FACEBOOK_ADSET ON PUBLIC.FACEBOOK_ADS_BASIC_DAILY.ADSET_ID = PUBLIC.FACEBOOK_ADSET.ADSET_ID
+    UNION
+    SELECT
+        TO_CHAR(DATE_TRUNC('month', ad_date::DATE), 'YYYY-MM-DD') AS ad_date,
+        NULL AS CAMPAIGN_ID,
+        NULL AS ADSET_ID,
+        COALESCE(SPEND,0) AS SPEND,
+        COALESCE(IMPRESSIONS,0) AS IMPRESSIONS,
+        COALESCE(REACH,0) AS REACH,
+        COALESCE(CLICKS,0) AS CLICKS,
+        COALESCE(LEADS,0) AS LEADS,
+        COALESCE(VALUE,0) AS VALUE,
+        URL_PARAMETERS,
+        NULL AS TOTAL,
+        CAST(CAMPAIGN_NAME AS TEXT) AS CAMPAIGN_NAME,
+        ADSET_NAME
+    FROM PUBLIC.GOOGLE_ADS_BASIC_DAILY
+),
+monthly_data AS (
+    SELECT
+        TO_CHAR(DATE_TRUNC('month', ad_date::DATE), 'YYYY-MM-01') AS ad_month,
+       CASE
+        WHEN LOWER(SUBSTRING(URL_PARAMETERS, 'utm_campaign=([^&#$]+)')) = 'nan' THEN NULL
+        WHEN LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)')) LIKE '%d1%82%d1%80%d0%b5%d0%bd%d0%b4%' THEN REPLACE(LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)')), '%d1%82%d1%80%d0%b5%d0%bd%d0%b4', 'trend')
+        WHEN LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)')) LIKE '%d0%b1%d1%80%d0%b5%d0%bd%d0%b4%' THEN REPLACE(LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)')), '%d0%b1%d1%80%d0%b5%d0%bd%d0%b4', 'brand')
+        ELSE LOWER(SUBSTRING(URL_PARAMETERS FROM 'utm_campaign=([^&]*)'))
+    END AS UTM_CAMPAIGN,
+        SUM(SPEND) AS TOTAL_SPEND,
+        SUM(IMPRESSIONS) AS TOTAL_IMPRESSIONS,
+        SUM(CLICKS) AS TOTAL_CLICKS,
+        SUM(VALUE) AS TOTAL_VALUE,
+        CASE
+            WHEN SUM(CLICKS) > 0 THEN ROUND(CAST(SUM(SPEND) AS NUMERIC) / SUM(CLICKS), 3)
+        END AS CPC,
+        CASE
+            WHEN SUM(IMPRESSIONS) > 0 THEN ROUND(CAST(SUM(SPEND) AS NUMERIC) / SUM(IMPRESSIONS) * 1000, 3)
+        END AS CPM,
+        CASE
+            WHEN SUM(IMPRESSIONS) > 0 THEN ROUND(CAST(SUM(CLICKS) AS NUMERIC) / SUM(IMPRESSIONS) * 100, 3)
+        END AS CTR,
+        CASE
+            WHEN SUM(SPEND) > 0 THEN ROUND(((CAST(SUM(VALUE) AS NUMERIC) - SUM(SPEND)) / SUM(SPEND)) * 100, 3)
+        END AS ROMI
+    FROM combined_data
+    GROUP BY ad_month, UTM_CAMPAIGN
+),
+monthly_data_with_diff AS (
+    SELECT
+        ad_month,
+        UTM_CAMPAIGN,
+        TOTAL_SPEND,
+        TOTAL_IMPRESSIONS,
+        TOTAL_CLICKS,
+        TOTAL_VALUE,
+        CTR,
+        CPC,
+        CPM,
+        ROMI,
+        (CPM - LAG(CPM) OVER (PARTITION BY UTM_CAMPAIGN ORDER BY ad_month)) AS CPM_DIFF,
+        (CTR - LAG(CTR) OVER (PARTITION BY UTM_CAMPAIGN ORDER BY ad_month)) AS CTR_DIFF,
+        (ROMI - LAG(ROMI) OVER (PARTITION BY UTM_CAMPAIGN ORDER BY ad_month)) AS ROMI_DIFF
+    FROM monthly_data
+)
+SELECT
+    ad_month,
+    UTM_CAMPAIGN,
+    TOTAL_SPEND,
+    TOTAL_IMPRESSIONS,
+    TOTAL_CLICKS,
+    TOTAL_VALUE,
+    CTR,
+    CPC,
+    CPM,
+    ROMI,
+    CPM_DIFF,
+    CTR_DIFF,
+    ROMI_DIFF
+FROM monthly_data_with_diff;
+

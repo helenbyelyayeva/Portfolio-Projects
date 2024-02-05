@@ -26,6 +26,14 @@ This query combines data from Facebook and Google ad campaigns to calculate aggr
 
 This query  identifies the adset with the highest ROMI among those with a total spend greater than $500,000. It uses a common table expression (CTE) to combine data from Facebook and Google ad campaigns.
 
+### Query 5: Combined Campaign Metrics with Decoded UTM
+
+This query combines data from Facebook and Google ad campaigns to calculate aggregated metrics for each ad campaign. It uses a common table expression (CTE) called COMBINED_DATA to merge data from both sources and handle null values. The SELECT statement then calculates metrics such as total spend, impressions, clicks, and value, and also decodes the UTM_CAMPAIGN value extracted from URL_PARAMETERS.
+
+### Query 6: Monthly Campaign Metrics and Differences
+
+This query calculates aggregated metrics for Facebook and Google ad campaigns on a monthly basis. It first creates a common table expression (CTE) named combined_data by merging data from both platforms. Then, another CTE named monthly_data aggregates the data by month and decodes the UTM_CAMPAIGN parameter. The final CTE, monthly_data_with_diff, calculates differences in CPM, CTR, and ROMI compared to the previous month. The main query selects the aggregated metrics along with the calculated differences.
+
 ## Usage
 
 To use these queries:
