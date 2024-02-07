@@ -1,4 +1,4 @@
-### Google Analytics 4 Data Analysis Using BigQuery
+### Google Analytics 4 - Data Analysis Using BigQuery
 
 ## Introduction
 
