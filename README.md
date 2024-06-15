@@ -23,12 +23,11 @@
 
 
 
-
 <div style="display: flex;">
     <div style="flex: 50%; padding: 5px;">
-        <img src="visuals/game.png" alt="Dashboard Screenshot 1" style="width: 100%;">
+        <img src="visuals/game.png" alt="Dashboard Screenshot 1" style="width: 200;">
     </div>
     <div style="flex: 50%; padding: 5px;">
-        <img src="visuals/game-2.png" alt="Dashboard Screenshot 2" style="width: 100%;">
+        <img src="visuals/game-2.png" alt="Dashboard Screenshot 2" style="width: 200;">
     </div>
 </div>
