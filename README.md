@@ -18,16 +18,8 @@
 ![Dashboard Screenshot](visuals/metrics.png)
 
 - [x] Excel & Tableau
-
+    - Cohort analysis, GameDev  -  Analyzes player behavior, tracks key activity metrics, measures user engagement and retention, defines cohorts based on activity time, and aims to optimize game design, acquisition, and monetization through data-driven insights in Google Sheets.
+    - See on Google Sheets : [HERE](https://docs.google.com/spreadsheets/d/1UgnEuEwBFrbx_yGdRq5SeFAmZGfWkTxo_ayyheDXeM0/edit?usp=sharing)
     - See on Tableau Public: [Dashboard](https://public.tableau.com/views/HW3_16918577306690/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
-
-
-
-<div style="display: flex;">
-    <div style="flex: 50%; padding: 5px;">
-        <img src="visuals/game.png" alt="Dashboard Screenshot 1" style="width: 200;">
-    </div>
-    <div style="flex: 50%; padding: 5px;">
-        <img src="visuals/game-2.png" alt="Dashboard Screenshot 2" style="width: 200;">
-    </div>
-</div>
+    
+![Dashboard Screenshot](visuals/game-2.png)
