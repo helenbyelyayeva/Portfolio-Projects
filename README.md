@@ -14,7 +14,7 @@
 
 - [x] SQL & Google Analytics 4
     - Ad Analysis - This repository contains SQL queries provide insights into user behavior and conversion rates, enabling businesses to make informed decisions based on their GA4 data.
-    - Review theSQL Script: [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/SQL/Big%20Query%20#google-analytics-4---data-analysis-using-bigquery)
+    - Review the SQL Script: [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/SQL/Big%20Query%20#google-analytics-4---data-analysis-using-bigquery)
 
 
 - [x] SQL & Tableau
@@ -25,11 +25,17 @@
 ![Dashboard Screenshot](visuals/metrics.png)
 
 - [x] Excel & Tableau
-    - Cohort analysis, GameDev  -  Analyzes player behavior, tracks key activity metrics, measures user engagement and retention, defines cohorts based on activity time, and aims to optimize game design, acquisition, and monetization through data-driven insights in Google Sheets.
+    - Cohort analysis, GameDev  - This project involves creating an analysis of player behavior, tracking key activity metrics, measuring user engagement and retention, defining cohorts based on activity time, and optimizing game design, acquisition, and monetization through data-driven insights in Google Sheets.
     - See on Google Sheets : [HERE](https://docs.google.com/spreadsheets/d/1UgnEuEwBFrbx_yGdRq5SeFAmZGfWkTxo_ayyheDXeM0/edit?usp=sharing)
     - See on Tableau Public: [Dashboard](https://public.tableau.com/views/HW3_16918577306690/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
 
 ![Dashboard Screenshot](visuals/game-2.png)
+
+- [x] Excel
+    - Coffe Shope Sales  - This project involves creating a comprehensive sales dashboard for a coffee shop using Google Sheets. The dashboard integrates data from multiple sources to provide key insights into sales performance, customer behavior, and regional market analysis.
+    - See on Google Sheets : [HERE](https://docs.google.com/spreadsheets/d/1GYLUjiQKDjYpvTFnKqSsYNtfC4_Ky1j688UFgRK3Hcw/edit?usp=sharing)
+
+![Dashboard Screenshot](visuals/coffe-2.png)
 
 - [x] Python -
     - This repository showcases a diverse range of data analysis and visualization projects, demonstrating proficiency in Python programming and data manipulation techniques. From analyzing the Stackoverflow Developer Survey to exploring advertising data and application ratings, each project delves into different datasets and employs various libraries like Pandas, Matplotlib, and Seaborn. 
