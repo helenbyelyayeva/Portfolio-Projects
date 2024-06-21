@@ -12,6 +12,11 @@
 
 ![Dashboard Screenshot](visuals/facebook.png)
 
+- [x] SQL & Google Analytics 4
+    - Ad Analysis - This repository contains SQL queries provide insights into user behavior and conversion rates, enabling businesses to make informed decisions based on their GA4 data.
+    - Review theSQL Script: [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/SQL/Big%20Query%20#google-analytics-4---data-analysis-using-bigquery)
+
+
 - [x] SQL & Tableau
     - Revenue Metrics SQL & Dashboard - This repository contains queries to create views for an interactive dashboard that enables hypothetical product managers to analyze revenue metrics, track changes in revenue dynamics, and conduct high-level analysis of the factors driving these changes.
     - Review the PostgreSQL Script: [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/SQL/Revenue%20Metric%20Analysis)
@@ -26,3 +31,8 @@
 
 ![Dashboard Screenshot](visuals/game-2.png)
 
+- [x] Python -
+    - This repository showcases a diverse range of data analysis and visualization projects, demonstrating proficiency in Python programming and data manipulation techniques. From analyzing the Stackoverflow Developer Survey to exploring advertising data and application ratings, each project delves into different datasets and employs various libraries like Pandas, Matplotlib, and Seaborn. 
+    - Review Script with Data Cleaning : [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/Python/Data%20Cleaning)
+    - Review Script with Data Analysis : [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/Python/Data%20Analysis)
+    - Review Script with Data Visualization : [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/Python/Data%20Visualization%20)
