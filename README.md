@@ -49,3 +49,12 @@
     - Review Script with Data Cleaning : [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/Python/Data%20Cleaning)
     - Review Script with Data Analysis : [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/Python/Data%20Analysis)
     - Review Script with Data Visualization : [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/Python/Data%20Visualization%20)
+
+    
+
+- [x] Power BI
+    -  Supermarket Sales Analysis Dashboards  - This project provides a comprehensive analysis of supermarket transactions, customer demographics, and sales performance using a variety of interactive dashboards.
+    - See all information about project: [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/PowerBI)
+
+    ![Dashboard Screenshot](visuals/bi-1.png)
+    ![Dashboard Screenshot](visuals/bi-2.png)
