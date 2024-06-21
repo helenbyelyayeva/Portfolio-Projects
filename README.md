@@ -19,20 +19,20 @@
 - [x] SQL & Tableau
     - Revenue Metrics SQL & Dashboard - This repository contains queries to create views for an interactive dashboard that enables hypothetical product managers to analyze revenue metrics, track changes in revenue dynamics, and conduct high-level analysis of the factors driving these changes.
     - Review the PostgreSQL Script: [HERE](https://github.com/helenbyelyayeva/Portfolio-Projects/tree/main/SQL/Revenue%20Metric%20Analysis)
-    - See on Tableau Public: [Dashboard](https://public.tableau.com/views/Book1-Revenue2/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
+    - See Tableau Dashboards in Tableau Public: [Dashboard](https://public.tableau.com/views/Book1-Revenue2/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
 
 ![Dashboard Screenshot](visuals/metrics.png)
 
 - [x] Excel & Tableau
     - Cohort analysis, GameDev  - This project involves creating an analysis of player behavior, tracking key activity metrics, measuring user engagement and retention, defining cohorts based on activity time, and optimizing game design, acquisition, and monetization through data-driven insights in Google Sheets.
     - See on Google Sheets : [HERE](https://docs.google.com/spreadsheets/d/1UgnEuEwBFrbx_yGdRq5SeFAmZGfWkTxo_ayyheDXeM0/edit?usp=sharing)
-    - See on Tableau Public: [Dashboard](https://public.tableau.com/views/HW3_16918577306690/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
+    - See Tableau Dashboards in Tableau Public: [Dashboard](https://public.tableau.com/views/HW3_16918577306690/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
 
 ![Dashboard Screenshot](visuals/game-2.png)
 
 - [x] Tableau
     - New Users Journey Analysis  - This project involves creating a comprehensive and dynamic dashboard that visualizes user progression from registration to initial payment, showcasing essential metrics and conversion rates to provide actionable insights for strategic decision-making and business growth.
-    - See on Tableau Public: [Dashboard](https://public.tableau.com/views/hw5_17061256632210/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
+    - See Tableau Dashboards in Tableau Public: [Dashboard](https://public.tableau.com/views/hw5_17061256632210/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
 
 ![Dashboard Screenshot](visuals/funnel.png)
 
