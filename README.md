@@ -31,6 +31,13 @@
 
 ![Dashboard Screenshot](visuals/game-2.png)
 
+- [x] Tableau
+    - New Users Journey Analysis  - This project involves creating a comprehensive and dynamic dashboard that visualizes user progression from registration to initial payment, showcasing essential metrics and conversion rates to provide actionable insights for strategic decision-making and business growth.
+    - See on Tableau Public: [Dashboard](https://public.tableau.com/views/hw5_17061256632210/Dashboard2?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link)
+
+![Dashboard Screenshot](visuals/funnel.png)
+
+
 - [x] Excel
     - Coffe Shope Sales  - This project involves creating a comprehensive sales dashboard for a coffee shop using Google Sheets. The dashboard integrates data from multiple sources to provide key insights into sales performance, customer behavior, and regional market analysis.
     - See on Google Sheets : [HERE](https://docs.google.com/spreadsheets/d/1GYLUjiQKDjYpvTFnKqSsYNtfC4_Ky1j688UFgRK3Hcw/edit?usp=sharing)
